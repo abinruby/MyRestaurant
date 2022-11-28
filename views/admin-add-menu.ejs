@@ -1,0 +1,56 @@
+<%-include('./includes/admin-header.ejs')-%>
+<div class="container p4 shadow">
+    <h1 class="text-center">Add Product</h1>
+    <form action="/admin/add-item" method="post">
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <label for="">Product Name</label>
+                <input type="text" name="item_name" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <label for="">Description</label>
+                <input type="text" maxlength="60" rows="2" name="desc" class="form-control"></input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <label for="">Category</label>
+                <select name="categoryid" id="">
+                    <option value="" selected>Select One</option>
+                    <% category.forEach(function(category){%>
+                        <option value="<%=category._id%>"><%=category.category_name%></option>
+                        <%}) %>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <label for="">Quantity</label>
+                <input type="text" name="quantity" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <label for="">Price</label>
+                <input type="number" name="price" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <label for="">Stock</label>
+                <input type="number" name="stock" class="form-control">
+            </div>
+        </div>
+        <div class="mt-2 col-md-12 ">
+            <div class=" d-flex justify-content-center mb-5">
+                <button type="submit" class="btn btn-primary ">Add Item
+                </button>
+            </div>
+            </div>
+    </form>
+</div>
+
+
+<%-include('./includes/admin-footer.ejs')-%>

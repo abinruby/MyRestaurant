@@ -1,0 +1,74 @@
+<%-include('./includes/admin-header.ejs')-%>
+
+<div  class="container h-100 mt-4  ">
+    <h2 class="text-center">Add Category</h2>
+    <div class="row mb-2">
+    <div class="d-flex  justify-content-center mb-4 col-12">
+      <form action="/admin/category" class="col-12 col-md-6" id="categoryform" method="post">
+        <input type="text" name="category"  id="category" placeholder="New Category" class="col-8 m-2 py-2 form-control mb-3">
+        <br>
+         <button type="submit" class="col-auto btn btn-success p-2 ">Submit</button>
+        </form>  
+      </div>  
+    </div>
+    <h2 class="text-center">Categories</h2>
+    <% if(message){%>
+        <p class="text-<%=message.type%>"><%=message.message%></p>
+        <%} %>
+        <div class="table-responsive">
+            <table class="table shadow">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Index</th>
+                        <th scope="col">category</th>
+                        <th scope="col">Offers available</th>
+                        <th scope="col">action</th>
+                    </tr>
+
+                </thead>
+                <tbody class="searchable">
+                    <% let i=0 %>
+                    <%categories.forEach(function(categories){%>
+                        <% i=i+1 %>
+                        <tr>
+                            <td><%=i%></td>
+                            <td><%=categories.category_name%></td>
+                            <%if(categories.offer){%>
+                                <td>Yes</td>
+                                <%} else{%>
+                                    <td>No</td>
+                                    <%}%>
+                                    <td>
+                                        <a id="confirm" onclick="confirmation('<%=categories._id%>')" class="btn btn-danger" >Delete</a>
+                                    </td>
+                        </tr>
+                        <%})%>
+
+                </tbody>
+
+            </table>
+        </div>
+</div>
+<script>
+    function confirmation(id){
+        swal({
+            title:'Are you sure?',
+            text:'Once deleted,you will not be able to recover',
+            icon:'warning',
+            buttons:true,
+            dangerMode:true,
+        })
+        .then((willDelete)=>{
+            if(willDelete){
+                swal('Category has been deleted!',{
+                    icon:"success",
+                }).then(()=>{
+                    location.href =`/admin/category/${id}`;
+                })
+            }else{
+                swal('Category is not deleted!')
+            }
+        })
+    }
+</script>
+<%-include('./includes/admin-footer.ejs')-%>
