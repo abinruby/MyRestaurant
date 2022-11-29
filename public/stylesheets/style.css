@@ -1,8 +1,25 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.fixed-bottom{
+  width: 100%;
+  height:4rem;
+  background-color: white;
+  display: flex;
+}
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
 }
 
-a {
-  color: #00B7FF;
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+#lblCartCount {
+    font-size: 1rem;
+    background: green;
+    color: #fff;
+vertical-align: top;
+    margin-left: -10px; 
 }

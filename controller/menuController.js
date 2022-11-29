@@ -18,10 +18,11 @@ exports.postAddMenu=async(req,res)=>{
         categoryId:req.body.categoryid,
         quantity:req.body.quantity,
         price:req.body.price,
-        stock:req.body.stock
+        stock:req.body.stock,
+        veg:req.body.veg
     })
     await saveItem.save()
-    res.redirect('/menu')
+    res.redirect('/admin/menu')
 }
 
 exports.getallItems=async(req,res)=>{

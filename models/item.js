@@ -9,5 +9,6 @@ const ItemSchema=mongoose.Schema({
     stock:{type:Number,required:true},
     Offerprice:{type:Number,default:0},
     price:{type:Number,required:true},
+    veg:{type:Boolean,required:true}
 },{timestamps:true})
 module.exports=mongoose.model('Items',ItemSchema)
