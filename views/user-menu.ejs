@@ -78,6 +78,7 @@
       </li>
     </ul>
 <!-- end of nav -->
+
 <div style="margin-bottom: 5rem;">
 <% for(let i=0; i < categories.length ; i++){%>
 <ul class="nav">
@@ -98,7 +99,7 @@
       <div style="display: flex;">
         <p style="font-size: smaller; display: flex;"><%=categories[i].result[j].quantity%></p>
        
-            <button style="margin-left: auto;display: block;" type="button" id='add<%=categories[i].result[j]._id%>' onclick="hide('<%=categories[i].result[j]._id%>','<%=categories[i].result[j].price%>')" class="btn btn-outline-success">Add <span>+</span></button>
+            <button style="margin-left: auto;display: block;" type="button" id='add<%=categories[i].result[j]._id%>' onclick="hide('<%=categories[i].result[j]._id%>','<%=categories[i].result[j].price%>','<%=categories[i].result[j].item_name %>')" class="btn btn-outline-success">Add <span>+</span></button>
             
                  
         <button style="margin-left: auto; display: none;" id="add-num<%=categories[i].result[j]._id%>" type="button" class="btn btn-outline-success">
@@ -109,8 +110,7 @@
                 <div  style="width: 1.5rem;height: 1.5rem;" id="increase" onclick="increaseValue('<%=categories[i].result[j]._id%>','<%=categories[i].result[j].price%>')" value="Increase Value">+</div>
             </div>
             </form>
-        </button>
-               
+        </button>  
        
     </div>       
     </div>
@@ -128,8 +128,29 @@
     <div style="font-size: 1.3rem;padding-top: 0.3rem;font-weight: 500;">Subtotal:<i class="fa-solid fa-indian-rupee-sign" style="font-size: 0.8rem; padding: 1px;"></i><span id="total"></span></div>
     <div style="color: grey;">Extra charges may apply</div>
 </div>
-<div><button class="btn btn-success m-3">Checkout</button></div>
+<div><button class="btn btn-success" style="margin-top: 10px;" onclick="ordersummary()">Order Summary</button></div>
 </div>
+
+<div style="width: 100%;position: fixed;bottom: 4rem;display: none;" id="orderSummary">
+  <div class="shadow p-3 m-2 bg-white rounded">
+    <div><h3>Order Summary</h3></div>
+    <div>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Items</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Amount</th>
+              </tr>
+            </thead>
+            <tbody id="mytbody">
+
+            </tbody>
+          </table>
+    </div>
+</div>
+</div>
+
 
 <script>
     var count=0;
@@ -141,6 +162,8 @@
   total+=parseInt(price);
   document.getElementById('total').innerText =total;
   document.getElementById('number'+id).innerText = value;
+  document.getElementById('quantity'+id).innerText=value
+  document.getElementById('price'+id).innerText=parseInt(price)*value
   document.getElementById('lblCartCount').innerText =count;
   if(value>0){
     document.getElementById('lblCartCount').innerText =count;
@@ -152,6 +175,7 @@ function decreaseValue(id,price) {
   if(value<=1){
     document.getElementById('add-num'+id).style.display = 'none'; 
     document.getElementById('add'+id).style.display = 'block';
+    document.getElementById('row'+id).remove()
     count--;
     total-=parseInt(price);
     document.getElementById('total').innerText =total;
@@ -162,11 +186,13 @@ count--;
 total-=parseInt(price);
 document.getElementById('total').innerText =total;
 document.getElementById('number'+id).innerText = value;
+document.getElementById('quantity'+id).innerText=value
+document.getElementById('price'+id).innerText=parseInt(price)*value
 document.getElementById('lblCartCount').innerText =count;
   }
 }
 
-function hide(id,price){
+function hide(id,price,name){
     document.getElementById('add-num'+id).style.display = 'block'; 
     document.getElementById('add'+id).style.display = 'none';
     count++;
@@ -174,6 +200,25 @@ function hide(id,price){
     document.getElementById('total').innerText =total;
     document.getElementById('lblCartCount').innerText =count;
     document.getElementById('number'+id).innerText=1
+
+   var tableRow=document.createElement('TR')
+   tableRow.setAttribute('id','row'+id)
+   document.getElementById('mytbody').appendChild(tableRow)
+   var tableData=document.createElement('TD')
+   var quantity=1
+   var tablePrice=document.createElement('TD')
+   tablePrice.setAttribute('id','price'+id)
+   var productPrice=price
+   var tableQuantity=document.createElement('TD')
+   tableQuantity.setAttribute('id','quantity'+id)
+   tableQuantity.innerHTML=quantity
+   tableData.innerHTML=name
+   tablePrice.innerHTML=productPrice
+   tableRow.appendChild(tableData)
+   tableRow.appendChild(tableQuantity)
+   tableRow.appendChild(tablePrice)
+    
+   
 }
 
 function veg(){
@@ -219,7 +264,12 @@ const elems= document.getElementsByClassName("true")
         elems[i].style.display='block'
        }
        }
+
 }
+function ordersummary(){
+        const style=(document.getElementById('orderSummary').style.display=='none')? 'block' : 'none'
+        document.getElementById('orderSummary').style.display = style;
+       }
 
 </script>
 
