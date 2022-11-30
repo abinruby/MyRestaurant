@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
+    <div class="loader"></div>
 <nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">RESTAURANT</a>
@@ -24,7 +25,7 @@
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <% for(let i=0; i < categories.length ; i++){%>
                 <li class="nav-item">
-                    <a class="nav-link" href="#"><%=categories[i].category_name%></a>
+                    <a class="nav-link"  href="#<%=categories[i]._id%>"><%=categories[i].category_name%></a>
                   </li>
                 <%} %>
           </ul>
@@ -65,13 +66,13 @@
    
     <li class="nav-item">
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <input class="form-check-input" name="check" onclick="veg()" type="checkbox" role="switch" id="veg">
             <label class="form-check-label" for="flexSwitchCheckDefault">Veg</label>
           </div>
     </li>
     <li class="nav-item">
         <div class="form-check form-switch ms-3">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <input class="form-check-input" name="check" onclick="nonveg()" type="checkbox" role="switch" id="nonveg">
             <label class="form-check-label" for="flexSwitchCheckDefault">Non Veg</label>
           </div>
       </li>
@@ -81,11 +82,12 @@
 <% for(let i=0; i < categories.length ; i++){%>
 <ul class="nav">
 <li class="nav-item me-auto mb-2 mb-lg-0">
-  <a class="nav-link text-dark " href="#"><span><h5><%=categories[i].category_name%></h3></span></a>
+  <a class="nav-link text-dark " id="<%=categories[i]._id%>" href="#"><span><h5><%=categories[i].category_name%></h3></span></a>
 </li>
 </ul>
 <% for(let j=0; j < categories[i].result.length ; j++){%>
-    <div class="card m-3 shadow">
+  
+    <div class="card m-3 shadow <%=categories[i].result[j].veg%>" style="display: block;" >
     <div class="card-body">
        <div style="justify-content: flex-start; display: flex;">
         <i class="fa-regular fa-circle-stop text-success"></i>
@@ -109,7 +111,6 @@
             </form>
         </button>
                
-        
        
     </div>       
     </div>
@@ -127,7 +128,7 @@
     <div style="font-size: 1.3rem;padding-top: 0.3rem;font-weight: 500;">Subtotal:<i class="fa-solid fa-indian-rupee-sign" style="font-size: 0.8rem; padding: 1px;"></i><span id="total"></span></div>
     <div style="color: grey;">Extra charges may apply</div>
 </div>
-<div><button class="btn btn-success m-3"> Order Summary</button></div>
+<div><button class="btn btn-success m-3">Checkout</button></div>
 </div>
 
 <script>
@@ -174,6 +175,62 @@ function hide(id,price){
     document.getElementById('lblCartCount').innerText =count;
     document.getElementById('number'+id).innerText=1
 }
+
+function veg(){
+document.getElementById('nonveg').checked=false
+const elems= document.getElementsByClassName("false")
+       for(let i=0;i<elems.length;i++){
+        elems[i].style.display='none'
+       }
+       const displayelems= document.getElementsByClassName("true")
+       for(let i=0;i<displayelems.length;i++){
+        displayelems[i].style.display='block'
+       }
+
+       if(document.getElementById('nonveg').checked==false && document.getElementById('veg').checked==false){
+        const displayelems= document.getElementsByClassName("true")
+       for(let i=0;i<displayelems.length;i++){
+        displayelems[i].style.display='block'
+       }
+       const elems= document.getElementsByClassName("false")
+       for(let i=0;i<elems.length;i++){
+        elems[i].style.display='block'
+       }
+       }
+}
+
+function nonveg(){
+document.getElementById('veg').checked=false
+const elems= document.getElementsByClassName("true")
+       for(let i=0;i<elems.length;i++){
+        elems[i].style.display='none'
+       }
+       const displayelems= document.getElementsByClassName("false")
+       for(let i=0;i<displayelems.length;i++){
+        displayelems[i].style.display='block'
+       }
+       if(document.getElementById('nonveg').checked==false && document.getElementById('veg').checked==false){
+        const displayelems= document.getElementsByClassName("true")
+       for(let i=0;i<displayelems.length;i++){
+        displayelems[i].style.display='block'
+       }
+       const elems= document.getElementsByClassName("false")
+       for(let i=0;i<elems.length;i++){
+        elems[i].style.display='block'
+       }
+       }
+}
+
+</script>
+
+<script>
+  window.addEventListener('load',()=>{
+    const loader=document.querySelector('.loader');
+    loader.classList.add('loader-hidden');
+    loader.addEventListener('transitioned',()=>{
+      document.body.removeChild('loader');
+    })
+  })
 </script>
 
 
