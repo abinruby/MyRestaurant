@@ -44,3 +44,21 @@ exports.getEditItems=async(req,res)=>{
     const itemdetails=await Item.findById(req.params.id)
     res.render('admin-edit-products',{itemdetails,category})
 }
+exports.postEditItems=async(req,res)=>{
+    console.log(req.body.categoryid);
+    const productcategory=await Category.findOne({_id: ObjectId(req.body.categoryid)})
+    const categoryname= productcategory.category_name
+    const updateItem=await Item.updateOne({_id:ObjectId(req.params.id)},{
+        $set:{
+            item_name:req.body.item_name,
+        desc:req.body.desc,
+        category:categoryname,
+        categoryId:req.body.categoryid,
+        quantity:req.body.quantity,
+        price:req.body.price,
+        stock:req.body.stock,
+        veg:req.body.veg
+        }
+    })
+    res.redirect('/admin/menu')
+}

@@ -91,15 +91,24 @@
     <div class="card m-3 shadow <%=categories[i].result[j].veg%>" style="display: block;" >
     <div class="card-body">
        <div style="justify-content: flex-start; display: flex;">
-        <i class="fa-regular fa-circle-stop text-success"></i>
+        <% if(categories[i].result[j].veg){%>
+          <i class="fa-regular fa-circle-stop text-success"></i>
+          <%}else{%>
+            <i class="fa-regular fa-circle-stop text-danger"></i>
+            <%} %>
+
         <p style="margin-inline: 1em; font-weight: 500;"><%=categories[i].result[j].item_name %></p>
         <div style="margin-left: auto;"><i class="fa-solid fa-indian-rupee-sign"></i><span><%=categories[i].result[j].price%></span></div>
     </div>
     
       <div style="display: flex;">
         <p style="font-size: smaller; display: flex;"><%=categories[i].result[j].quantity%></p>
-       
-            <button style="margin-left: auto;display: block;" type="button" id='add<%=categories[i].result[j]._id%>' onclick="hide('<%=categories[i].result[j]._id%>','<%=categories[i].result[j].price%>','<%=categories[i].result[j].item_name %>')" class="btn btn-outline-success">Add <span>+</span></button>
+       <% if(categories[i].result[j].stock){%>
+        <button style="margin-left: auto;display: block;" type="button" id='add<%=categories[i].result[j]._id%>' onclick="hide('<%=categories[i].result[j]._id%>','<%=categories[i].result[j].price%>','<%=categories[i].result[j].item_name %>')" class="btn btn-outline-success">Add <span>+</span></button>
+        <%}else{%>
+          <button class="btn btn-outline-danger" style="margin-left: auto;display: block;" type="button" disabled>Out Of Stock</button>
+          <%} %>
+          
             
                  
         <button style="margin-left: auto; display: none;" id="add-num<%=categories[i].result[j]._id%>" type="button" class="btn btn-outline-success">

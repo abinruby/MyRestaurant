@@ -36,7 +36,11 @@
                         <td><%=itemdetails[i].desc%></td>
                         <td><%=itemdetails[i].category%></td>
                         <td><%=itemdetails[i].quantity%></td>
-                        <td><%=itemdetails[i].stock%></td>
+                        <% if(itemdetails[i].stock){%>
+                          <td>In stock</td>
+                          <%}else{%>
+                            <td>Out of Stock</td>
+                            <%} %>
                         <td><%=itemdetails[i].price%></td>
                         <td>
                             <a href="/admin/edit-item/<%=itemdetails[i]._id%>"  class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>

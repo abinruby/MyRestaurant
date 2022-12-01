@@ -18,7 +18,7 @@
             <div class="col-md-6 mt-5">
                 <label for="">Category</label>
                 <select name="categoryid" id="">
-                    <option value="" selected><%=itemdetails.category%></option>
+                    <option value="<%=itemdetails.categoryId%>" selected><%=itemdetails.category%></option>
                     <% category.forEach(function(category){%>
                         <option value="<%=category._id%>"><%=category.category_name%></option>
                         <%}) %>
@@ -40,7 +40,30 @@
         <div class="row">
             <div class="col-md-6 mt-5">
                 <label for="">Stock</label>
-                <input type="number" value="<%=itemdetails.stock%>" name="stock" class="form-control">
+                <select name="stock" id="">
+                    <% if(itemdetails.stock){%>
+                        <option value="true">instock</option>
+                        <option value="false">out of Stock</option>
+                        <%}else{%>
+                            <option value="false">out of Stock</option>
+                            <option value="true">instock</option>
+                            <%} %>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mt-5">
+                <label for="">Veg Or Non-Veg</label>
+                <select name="veg" id="">
+                    <% if(itemdetails.veg){%>
+                        <option value="true">Veg</option>
+                        <option value="false">Non-Veg</option>
+                        <%}else{%>
+                            <option value="false">Non-Veg</option>
+                            <option value="true">Veg</option>
+                            <%} %>
+
+                </select>
             </div>
         </div>
         <div class="mt-2 col-md-12 ">

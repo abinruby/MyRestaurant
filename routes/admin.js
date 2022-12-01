@@ -22,10 +22,11 @@ router.post('/login',adminController.adminlogin)
 router.get('/logout',adminController.adminlogout)
 
 router.get('/category',adminauth,categoryController.getCategory);
-router.post('/category',categoryController.postCategory)
+router.post('/category',adminauth,categoryController.postCategory)
 router.get('/category/:id',adminauth,categoryController.deleteCategory)
 router.get('/menu',adminauth,menuController.getallItems)
 router.get('/add-item',adminauth,menuController.getAddMenu)
-router.post('/add-item',menuController.postAddMenu)
+router.post('/add-item',adminauth,menuController.postAddMenu)
 router.get('/edit-item/:id',adminauth,menuController.getEditItems)
+router.post('/edit-item/:id',adminauth,menuController.postEditItems)
 module.exports = router;
